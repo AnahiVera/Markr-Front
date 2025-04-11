@@ -8,21 +8,20 @@ const App = () => {
     'a new note...'
   )
 
-  useEffect(() => {
+  useEffect(() => { //get all notes
     console.log('effect')
     noteService.getAll()
-  .then(initialNotes => {
-    setNotes(initialNotes)
+      .then(initialNotes => {
+        setNotes(initialNotes)
       })
   }, [])
   console.log('render', notes.length, 'notes')
 
-  const addNote = event => {
+  const addNote = event => { //add a new note
     event.preventDefault()
     const noteObject = {
       content: newNote,
     }
-
     noteService
       .create(noteObject)
       .then(returnedNote => {
