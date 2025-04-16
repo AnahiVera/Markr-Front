@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Note from './components/Note'
 import noteService from './services/notes'
+import './App.css'
 
 const App = () => {
   const [notes, setNotes] = useState([])
@@ -41,21 +42,41 @@ const App = () => {
       })
   } */
 
+      //Agregar funciones de actualización y eliminación
+
+      //agregar la form inside cada note? signo + creacion en blanco 
+      //dist-> conectar/terminar back con MogoDB 
+      //Empacketar en Docker (branch?)
+      //Desplegar en Render.
+
   const handleNoteChange = (event) => {
     setNewNote(event.target.value)
   }
   return (
-    <div>
-      <h1>Notes</h1>
-      <ul>
-        {notes.map(note =>
-          <Note key={note.id} note={note} />
-        )}
-      </ul>
+    <div className="app-container">
+      <h1>My Sticky Notes</h1>
       <form onSubmit={addNote}>
-        <input value={newNote} onChange={handleNoteChange} />
-        <button type="submit">save</button>
+        <input 
+          value={newNote} 
+          onChange={handleNoteChange} 
+          placeholder="Add a new note..."
+        />
+        <button type="submit">Save</button>
       </form>
+      <div className="notes-container">
+        
+        <ul>
+          {notes.map(note =>
+            <Note 
+              key={note.id} 
+              note={note} 
+              handleUpdate={() => handleUpdate(note.id)}
+              handleDelete={() => handleDelete(note.id)}
+            />
+          )}
+        </ul>
+      </div>
+      
     </div>
   )
 }
